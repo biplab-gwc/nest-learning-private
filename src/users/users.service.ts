@@ -1,8 +1,8 @@
 export class UsersService {
-  users: { id: number; name: string; age: number; gender: string }[] = [
-    { id: 1, name: 'John', age: 20, gender: 'male' },
-    { id: 2, name: 'Jane', age: 21, gender: 'female' },
-    { id: 3, name: 'Jim', age: 22, gender: 'male' },
+  users: { id: number; name: string; email: string; gender: string }[] = [
+    { id: 1, name: 'John', email: 'john@gmail.com', gender: 'male' },
+    { id: 2, name: 'Jane', email: 'jane@gmail.com', gender: 'female' },
+    { id: 3, name: 'Jim', email: 'jim@gmail.com', gender: 'male' },
   ];
 
   getAllUsers() {
@@ -13,7 +13,7 @@ export class UsersService {
     return this.users.find((user) => user.id === id) || 'User not found';
   }
 
-  createUser(user: { name: string; age: number; gender: string }) {
+  createUser(user: { name: string; email: string; gender: string }) {
     this.users.push({ id: this.users.length + 1, ...user });
   }
 }

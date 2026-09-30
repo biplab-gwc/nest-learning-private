@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   DefaultValuePipe,
   Get,
@@ -6,8 +7,10 @@ import {
   ParseIntPipe,
   Post,
   Query,
+  ValidationPipe,
 } from '@nestjs/common';
 import { UsersService } from './users.service.js';
+import { CreateUserDto } from './dtos/create-user.dto.js';
 
 @Controller('users')
 export class UsersController {
@@ -18,7 +21,7 @@ export class UsersController {
 
   @Get()
   getUsers(
-    @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
+    @Query('limit', new DefaultValuePipe(1), ParseIntPipe) limit: number,
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
   ) {
     console.log(limit, page);
@@ -32,15 +35,9 @@ export class UsersController {
   }
 
   @Post()
-  createUser() {
-    const dummyUser = {
-      name: 'John Doe',
-      age: 20,
-      gender: 'male',
-    };
-
-    const usersService = new UsersService();
-    usersService.createUser(dummyUser);
+  createUser(@Body(new ValidationPipe()) user: CreateUserDto) {
+    // const usersService = new UsersService();
+    // usersService.createUser(user);
     return 'User created successfully';
   }
 }
